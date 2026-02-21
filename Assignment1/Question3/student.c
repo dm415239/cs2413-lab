@@ -27,7 +27,63 @@
 
 int* plusOne(int* digits, int digitsSize, int* returnSize) {
     // TODO: implement
+    int* output;
+    int a = 0;
+    int x = digitsSize - 1;
+    int y = 0;
+    if (digits[x] < 9) {
+        output = malloc(digitsSize * sizeof(int));
+        *returnSize = digitsSize;
 
-    
+        while (y < digitsSize) {
+            output[y] = digits[y];
+            y++;
+
+        }
+        output[x] = digits[x] + 1;
+        a = 1;
+
+    }
+    else {
+        int temp[digitsSize];
+        while (y < digitsSize) {
+            temp[y] = digits[y];
+            y++;
+        }
+        while (x >= 0) {
+            if (a == 0) {
+                if (digits[x] < 9) {
+                    a = 1;
+                    temp[x] = digits[x] + 1;
+
+                }
+                if (digits[x] == 9)
+                    temp[x] = 0;
+            }
+            x--;
+        }
+        if (a == 1) {
+            output = malloc(digitsSize * sizeof(int));
+            *returnSize = digitsSize;
+            y = 0;
+            while (y < digitsSize) {
+                output[y] = temp[y];
+                y++;
+            }
+        }
+        else {
+            output = malloc((digitsSize + 1) * sizeof(int));
+            output[0] = 1;
+            x = 1;
+                while (x <= digitsSize) {
+                    output[x] = 0;
+                    x++;
+            }
+            *returnSize = digitsSize + 1;
+        }
+    }
+
+
+    return(output);
 }
 

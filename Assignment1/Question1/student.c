@@ -16,7 +16,51 @@
 void merge(int* nums1, int nums1Size, int m, int* nums2, int nums2Size, int n) {
 
  // TODO: implement
+	if (nums1Size == n + m) {
+		if (nums2Size == n) {
+			int x = 0;
+			int w = 0;
+			while (x < nums1Size) {
+				int y = w;
+				while (y < nums2Size) {
+					if (x>=m)
+					{
+						nums1[x] = nums2[y];
+						m++;
+						w++;
+					}
+					else {
+						if (nums2[y] <= nums1[x]) {
+							int z = x + 1;
+							int temp = nums1[x];
+							int ttemp = nums1[x + 1];
+							nums1[x] = nums2[y];
+							w++;
+							m++;
+							int t = 1;
+							while (t == 1) {
+								if (z>=m) {
+									t = 0;
+								}
 
+								else {
+									nums1[z] = temp;
+									temp = ttemp;
+									ttemp = nums1[z + 1];
+								}
+								z++;
+							}
+							
+							
+						}
+					}
+					y++;
+				}
+				x++;
+				
+			}
+		}
 
+	}
 
 }
