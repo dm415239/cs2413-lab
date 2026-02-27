@@ -36,60 +36,74 @@
 // ------------------------------------------------------------
 
 #include "Student.h"
-#include <stdlib.h>   // malloc, free
-#include <stdbool.h>  // bool
+#include <stdlib.h>
+#include <stdbool.h>
 
+// Create a new circular queue with capacity k
 MyCircularQueue* myCircularQueueCreate(int k) {
-    // TODO:
-    // - Allocate MyCircularQueue
-    // - Allocate the internal buffer `data` of length k
-    // - Initialize capacity, head, tail, size
-
+    MyCircularQueue* obj = (MyCircularQueue*)malloc(sizeof(MyCircularQueue));
+    if (!obj) return NULL;                 // allocation failed
+    obj->data = (int*)malloc(sizeof(int) * k);
+    if (!obj->data) {
+        free(obj);
+        return NULL;
+    }
+    obj->capacity = k;
+    obj->head = 0;
+    obj->tail = 0;
+    obj->size = 0;
+    return obj;
 }
 
+// Insert an element into the queue. Returns true on success, false if full.
 bool myCircularQueueEnQueue(MyCircularQueue* obj, int value) {
-    // TODO:
-    // - If full, return false
-    // - Write value at tail, advance tail (wrap), size++
-
+    if (obj->size == obj->capacity)        // queue is full
+        return false;
+    obj->data[obj->tail] = value;
+    obj->tail = (obj->tail + 1) % obj->capacity;   // wrap around
+    obj->size++;
+    return true;
 }
 
+// Delete an element from the queue. Returns true on success, false if empty.
 bool myCircularQueueDeQueue(MyCircularQueue* obj) {
-    // TODO:
-    // - If empty, return false
-    // - Advance head (wrap), size--
-
+    if (obj->size == 0)                     // queue is empty
+        return false;
+    obj->head = (obj->head + 1) % obj->capacity;   // move head forward, wrap
+    obj->size--;
+    return true;
 }
 
+// Get the front element. Returns -1 if queue is empty.
 int myCircularQueueFront(MyCircularQueue* obj) {
-    // TODO:
-    // - Return -1 if empty
-    // - Otherwise return data[head]
-
+    if (obj->size == 0)
+        return -1;
+    return obj->data[obj->head];
 }
 
+// Get the rear (last) element. Returns -1 if queue is empty.
 int myCircularQueueRear(MyCircularQueue* obj) {
-    // TODO:
-    // - Return -1 if empty
-    // - Otherwise return the last inserted element
-    //   (tail points to next insertion position)
-
+    if (obj->size == 0)
+        return -1;
+    // tail points to next insertion, so last element is at (tail-1) mod capacity
+    int lastIndex = (obj->tail - 1 + obj->capacity) % obj->capacity;
+    return obj->data[lastIndex];
 }
 
+// Check whether the queue is empty.
 bool myCircularQueueIsEmpty(MyCircularQueue* obj) {
-    // TODO:
-    // - Return true if size == 0
-
+    return obj->size == 0;
 }
 
+// Check whether the queue is full.
 bool myCircularQueueIsFull(MyCircularQueue* obj) {
-    // TODO:
-    // - Return true if size == capacity
- 
+    return obj->size == obj->capacity;
 }
 
+// Free all memory used by the queue.
 void myCircularQueueFree(MyCircularQueue* obj) {
-    // TODO:
-    // - Free internal buffer then free obj
-  
+    if (obj) {
+        free(obj->data);
+        free(obj);
+    }
 }

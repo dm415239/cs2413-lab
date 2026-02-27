@@ -30,30 +30,61 @@
 #include <string.h>  // strlen
 
 bool isValid(const char *s) {
-    // TODO: Implement using a stack.
-    //
-    // Recommended approach:
-    // - Use a char array as a stack to store opening brackets.
-    // - Scan the string from left to right:
-    //   - If you see an opening bracket, push it.
-    //   - If you see a closing bracket:
-    //       * stack must not be empty
-    //       * top of stack must match the closing bracket type
-    //       * then pop
-    // - At the end, stack must be empty.
-    //
-    // Helpful matching pairs:
-    //   ')' matches '('
-    //   ']' matches '['
-    //   '}' matches '{'
-    //
-    // Corner cases:
-    // - s == NULL -> return false
-    // - odd length strings can’t be valid 
-    //
-    // Note:
-    // - Input contains only bracket characters, per the prompt.
+    bool output = true;
+    int x = strlen(s);
+    int y = 0;
+    char arr[x];
+    int w = 0;
+    while (y < x) {
+        if (s[y] == '(' || s[y] == '[' || s[y] == '{') {
+            arr[w] = s[y];
+            w++;
+            bool t = true;
+            int z = (y+1);
+            while (t) {
+                if (z < x) {
+                    if (s[z] == '(' || s[z] == '[' || s[z] == '{') {
+                        t = false;
+                    }
+                    else {
+                        if ((arr[w - 1] == '(' && s[z] == ')') ||
+                            (arr[w - 1] == '[' && s[z] == ']') ||
+                            (arr[w - 1] == '{' && s[z] == '}'))
+                        {
+                            t = false;
+                            w--;
+                        }
 
-    (void)s; // remove after implementing
-    return false; // placeholder
+                        else {
+                            if (s[z] == ')' || s[z] == ']' || s[z] == '}') {
+                                t = false;
+                                output = false;
+                            }
+                        }
+                    }
+
+                }
+                
+
+                if (z >= x) {
+                    t = false;
+                    output = false;
+                }
+
+                z++;
+            }
+            
+        }
+        else {
+            if (y == 0) {
+                output = false;
+            }
+        }
+        y++;
+    }
+    if (x % 2 != 0) {
+        output = false;
+    }
+   
+    return (output);
 }
