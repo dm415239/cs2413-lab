@@ -38,7 +38,8 @@ void runSingleTest(const char* testName, const int input[], const int expected[]
     printf("%s: ", testName);
     if (arraysEqual(actual, expected, size)) {
         printf("PASS\n");
-    } else {
+    }
+    else {
         printf("FAIL\n");
         printf("  Input:    ");
         printArray(input, size);
@@ -56,38 +57,38 @@ void runSingleTest(const char* testName, const int input[], const int expected[]
 
 int main() {
     {
-        int input[] = {38, 27, 43, 3, 9, 82, 10};
-        int expected[] = {3, 9, 10, 27, 38, 43, 82};
+        int input[] = { 38, 27, 43, 3, 9, 82, 10 };
+        int expected[] = { 3, 9, 10, 27, 38, 43, 82 };
         runSingleTest("random array", input, expected, 7);
     }
 
     {
-        int input[] = {1, 2, 3, 4, 5, 6};
-        int expected[] = {1, 2, 3, 4, 5, 6};
+        int input[] = { 1, 2, 3, 4, 5, 6 };
+        int expected[] = { 1, 2, 3, 4, 5, 6 };
         runSingleTest("already sorted", input, expected, 6);
     }
 
     {
-        int input[] = {6, 5, 4, 3, 2, 1};
-        int expected[] = {1, 2, 3, 4, 5, 6};
+        int input[] = { 6, 5, 4, 3, 2, 1 };
+        int expected[] = { 1, 2, 3, 4, 5, 6 };
         runSingleTest("reverse sorted", input, expected, 6);
     }
 
     {
-        int input[] = {4, 1, 3, 4, 2, 1};
-        int expected[] = {1, 1, 2, 3, 4, 4};
+        int input[] = { 4, 1, 3, 4, 2, 1 };
+        int expected[] = { 1, 1, 2, 3, 4, 4 };
         runSingleTest("with duplicates", input, expected, 6);
     }
 
     {
-        int input[] = {-5, 2, 0, -1, 8, -3};
-        int expected[] = {-5, -3, -1, 0, 2, 8};
+        int input[] = { -5, 2, 0, -1, 8, -3 };
+        int expected[] = { -5, -3, -1, 0, 2, 8 };
         runSingleTest("with negative numbers", input, expected, 6);
     }
 
     {
-        int input[] = {7};
-        int expected[] = {7};
+        int input[] = { 7 };
+        int expected[] = { 7 };
         runSingleTest("single element", input, expected, 1);
     }
 
